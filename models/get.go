@@ -11,6 +11,7 @@ func Get(id int) (user User, err error) {
 	conn, err := db.OpenConnection()
 
 	if err != nil {
+		log.Printf("Error to open connection with database: %v", err)
 		return
 	}
 	defer conn.Close()

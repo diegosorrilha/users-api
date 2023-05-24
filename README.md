@@ -23,6 +23,18 @@ curl http://localhost:8000/users
 curl http://localhost:8000/users/1
 ```
 
+#### Create a user
+```bash
+curl --location --request POST 'http://localhost:8000/users' -H 'Content-Type: application/json' --data '{
+    "name": "John",
+    "age": 42,
+    "email": "john@gmail.com",
+    "password": "4242",
+    "address": "Johns street"
+}'
+
+```
+
 ## Deployment
 
 ```bash

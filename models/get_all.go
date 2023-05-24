@@ -1,10 +1,34 @@
 package models
 
-func GetAll() (users []User, err error) {
+import (
+	"fmt"
 
-	users = []User{
-		User{Name: "Diego", Age: 39, Email: "diego@sorrilha.net", Password: "****", Address: "Rua do Diego, 42"},
-		User{Name: "Roberto", Age: 45, Email: "roberto@gmail.com", Password: "****", Address: "Rua do Roberto, 42"},
+	"github.com/diegosorrilha/users-api/db"
+)
+
+func GetAll() (users []User, err error) {
+	conn, err := db.OpenConnection()
+
+	if err != nil {
+		return
+	}
+	defer conn.Close()
+
+	rows, err := conn.Query("SELECT * from users;")
+	if err != nil {
+		return
+	}
+
+	for rows.Next() {
+		var user User
+
+		err = rows.Scan(&user.ID, &user.Name, &user.Age, &user.Email, &user.Password, &user.Address)
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
+
+		users = append(users, user)
 	}
 
 	return

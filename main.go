@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/diegosorrilha/users-api/configs"
 	"github.com/diegosorrilha/users-api/handlers"
 )
 
@@ -11,6 +12,11 @@ func main() {
 	port := 8000
 	server_address := "localhost"
 	server_path := fmt.Sprintf("%v:%v", server_address, port)
+
+	err := configs.Load()
+	if err != nil {
+		panic(err)
+	}
 
 	mux := http.NewServeMux()
 

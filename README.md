@@ -2,19 +2,22 @@ users-api
 =============
 
 ## Running
-```bash
-make run
-```
-```bash
-curl http://localhost:8080/users
-```
-
-## Deployment
-
 1 - Copy config file and set real values:
 ```bash
 cp contrib/config.toml.sample config.toml
 ```
+
+2 - Run it:
+```bash
+make run
+```
+
+3 - Get all users:
+```bash
+curl http://localhost:8000/users
+```
+
+## Deployment
 
 ```bash
 make build

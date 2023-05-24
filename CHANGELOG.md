@@ -4,5 +4,7 @@
 
 ### Added
 - VMA-01: Create basic structure, README, CHANGELOG and Makefile
+- VMA-02: Implement "List" endpoint (GET: /users) with configurations module and database
+
 
 

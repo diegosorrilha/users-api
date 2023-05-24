@@ -7,3 +7,4 @@
 - VMA-02: Implement "List" endpoint (GET: /users) with configurations module and database
 - VMA-03: Implement "Get" endpoint (GET: /users/{id})
 - VMA-04: Implement "Create" endpoint (POST: /users)
+- VMA-05: Implement "Delete" endpoint (DELETE: /users/{id})

@@ -13,7 +13,7 @@ make run
 ```
 
 ### 3 - Hit in the API:
-#### Get all users:
+#### Get all users
 ```bash
 curl http://localhost:8000/users
 ```
@@ -34,6 +34,13 @@ curl --location --request POST 'http://localhost:8000/users' -H 'Content-Type: a
 }'
 
 ```
+
+#### Delete a user
+```bash
+curl --location --request DELETE 'http://localhost:8000/users/1'
+
+```
+
 
 ## Deployment
 

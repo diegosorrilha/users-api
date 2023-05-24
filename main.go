@@ -21,6 +21,7 @@ func main() {
 
 	// routes
 	r.Get("/users", handlers.ListUsers)
+	r.Post("/users", handlers.CreateUser)
 	r.Get("/users/{id}", handlers.GetUser)
 
 	fmt.Printf("Server running: http://%v/users", server_path)

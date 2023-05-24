@@ -23,6 +23,7 @@ func main() {
 	r.Get("/users", handlers.ListUsers)
 	r.Post("/users", handlers.CreateUser)
 	r.Get("/users/{id}", handlers.GetUser)
+	r.Delete("/users/{id}", handlers.DeleteUser)
 
 	fmt.Printf("Server running: http://%v/users", server_path)
 	http.ListenAndServe(server_path, r)

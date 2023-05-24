@@ -2,19 +2,25 @@ users-api
 =============
 
 ## Running
-1 - Copy config file and set real values:
+### 1 - Copy config file and set real values:
 ```bash
 cp contrib/config.toml.sample config.toml
 ```
 
-2 - Run it:
+### 2 - Run it:
 ```bash
 make run
 ```
 
-3 - Get all users:
+### 3 - Hit in the API:
+#### Get all users:
 ```bash
 curl http://localhost:8000/users
+```
+
+#### Get data from a specific user
+```bash
+curl http://localhost:8000/users/1
 ```
 
 ## Deployment

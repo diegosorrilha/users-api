@@ -3,6 +3,7 @@ package models
 import (
 	"fmt"
 
+	"github.com/diegosorrilha/users-api/configs"
 	"github.com/diegosorrilha/users-api/db"
 )
 
@@ -28,6 +29,7 @@ func GetAll() (users []User, err error) {
 			continue
 		}
 
+		user.Link = fmt.Sprintf("http://localhost:%s/users/%v", configs.GetServerPort(), user.ID)
 		users = append(users, user)
 	}
 

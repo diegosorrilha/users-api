@@ -3,6 +3,7 @@ package db
 import (
 	"database/sql"
 	"fmt"
+	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 
@@ -18,7 +19,7 @@ func OpenConnection() (*sql.DB, error) {
 	conn, err := sql.Open("mysql", string_connection)
 
 	if err != nil {
-		fmt.Println(err)
+		log.Printf("Error to connect to Database: %v", err)
 		panic(err)
 	}
 

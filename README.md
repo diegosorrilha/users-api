@@ -51,8 +51,11 @@ curl --location --request PUT 'http://localhost:8000/users/16' -H 'Content-Type:
     "address": "Johns street"
 }'
 ```
+## Running tests
 
-
+```bash
+make test
+```
 
 ## Deployment
 

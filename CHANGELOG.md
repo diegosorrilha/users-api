@@ -9,4 +9,4 @@
 - VMA-04: Implement "Create" endpoint (POST: /users)
 - VMA-05: Implement "Delete" endpoint (DELETE: /users/{id})
 - VMA-06: Implement "Update" endpoint (PUT: /users/{id})
-
+- VMA-07:  Add basic tests

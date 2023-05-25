@@ -105,8 +105,11 @@ func TestGetListUsersWithError404(t *testing.T) {
 // Get User tests
 func TestGetUserWithSuccess(t *testing.T) {
 	if err_load_configs == nil {
+		id, _ := createUser()
+		endpoint := fmt.Sprintf("/users/%v", id)
+
 		r := routers.CreateNewRouter()
-		req, _ := http.NewRequest("GET", "/users/2", nil)
+		req, _ := http.NewRequest("GET", endpoint, nil)
 
 		response := executeRequest(req, r)
 

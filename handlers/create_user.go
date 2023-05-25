@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/diegosorrilha/users-api/crypt"
 	"github.com/diegosorrilha/users-api/models"
 )
 
@@ -19,6 +20,15 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Error to decode body: %v", err)
 		w.WriteHeader(http.StatusInternalServerError)
 	}
+
+	hash, err := crypt.HashPassword(user.Password)
+
+	if err != nil {
+		log.Printf("Error to try to encrypt password: %v", err)
+		return
+	}
+
+	user.Password = hash
 
 	id, err := models.Insert(user)
 

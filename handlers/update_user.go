@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/diegosorrilha/users-api/crypt"
 	"github.com/diegosorrilha/users-api/models"
 	"github.com/go-chi/chi/v5"
 )
@@ -26,6 +27,15 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Error to decode user: %v", err)
 		w.WriteHeader(http.StatusInternalServerError)
 	}
+
+	hash, err := crypt.HashPassword(user.Password)
+
+	if err != nil {
+		log.Printf("Error to try to encrypt password: %v", err)
+		return
+	}
+
+	user.Password = hash
 
 	rows, err := models.Update(id, user)
 

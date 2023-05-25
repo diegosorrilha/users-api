@@ -65,6 +65,12 @@ curl --location --request PUT 'http://localhost:8000/users/16' -H 'Content-Type:
 make test
 ```
 
+## Running Documentation
+
+```bash
+make docs
+```
+
 ## Deployment
 
 ```bash

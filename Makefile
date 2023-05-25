@@ -10,6 +10,6 @@ clean:
 test:
 	go test ./...
 
-doc:
+docs:
 	godoc -http :9000
 	$(info Running in http://localhost:9000/pkg/github.com/diegosorrilha/users-api/)

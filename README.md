@@ -1,6 +1,14 @@
 users-api
 =============
 
+| METHOD | ENDPOINT    | DESCRIPTION                     |
+|--------|-------------|---------------------------------|
+| GET    | /users      | Get all users                   |
+| POST   | /users      | Create a new user               |
+| GET    | /users/{id} | Get info for a specific user    |
+| PUT    | /users/{id} | Update info for a specific user |
+| DELETE | /users/{id} | Delete a specific user          |
+
 ## Running
 ### 1 - Copy config file and set real values:
 ```bash

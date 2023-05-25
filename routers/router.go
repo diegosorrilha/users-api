@@ -1,3 +1,4 @@
+// Package routers collects routes configurations.
 package routers
 
 import (
@@ -5,6 +6,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
+// CreateNewRouter is a function to configurate routes.
 func CreateNewRouter() *chi.Mux {
 	r := chi.NewRouter()
 

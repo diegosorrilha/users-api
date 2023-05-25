@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.0] - Unreleased
+## [1.0.0] - 2023-05-25
 
 ### Added
 - VMA-01: Create basic structure, README, CHANGELOG and Makefile
@@ -11,3 +11,4 @@
 - VMA-06: Implement "Update" endpoint (PUT: /users/{id})
 - VMA-07: Add basic tests
 - VMA-08: Encrypt password
+- VMA-09: Add basic documentation

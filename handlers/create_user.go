@@ -1,3 +1,4 @@
+// Package handlers collects handlers functions.
 package handlers
 
 import (
@@ -10,6 +11,7 @@ import (
 	"github.com/diegosorrilha/users-api/models"
 )
 
+// CreateUser is a handler to create a user.
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	var user models.User

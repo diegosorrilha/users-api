@@ -7,6 +7,7 @@ import (
 	"github.com/diegosorrilha/users-api/db"
 )
 
+// GetAll is a function to get all users from the database.
 func GetAll() (users []User, err error) {
 	conn, err := db.OpenConnection()
 

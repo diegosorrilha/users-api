@@ -7,6 +7,7 @@ import (
 	"github.com/diegosorrilha/users-api/db"
 )
 
+// Get is a function to get a specific user from the database.
 func Get(id int) (user User, err error) {
 	conn, err := db.OpenConnection()
 

@@ -7,6 +7,7 @@ import (
 	"github.com/diegosorrilha/users-api/db"
 )
 
+// Insert is a function to insert a user in the database.
 func Insert(user User) (id int64, err error) {
 	conn, err := db.OpenConnection()
 

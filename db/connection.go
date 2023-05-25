@@ -1,3 +1,4 @@
+// Package db collects dabatase functions.
 package db
 
 import (
@@ -10,6 +11,7 @@ import (
 	"github.com/diegosorrilha/users-api/configs"
 )
 
+// OpenConnection is a function to open connection with database.
 func OpenConnection() (*sql.DB, error) {
 	conf := configs.GetDB()
 

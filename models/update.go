@@ -7,6 +7,7 @@ import (
 	"github.com/diegosorrilha/users-api/db"
 )
 
+// Update is a function to update a user from the database.
 func Update(id int, user User) (int64, error) {
 	conn, err := db.OpenConnection()
 

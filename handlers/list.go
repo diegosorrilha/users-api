@@ -8,6 +8,7 @@ import (
 	"github.com/diegosorrilha/users-api/models"
 )
 
+// ListUsers is a handler to get all users.
 func ListUsers(w http.ResponseWriter, r *http.Request) {
 	users, err := models.GetAll()
 

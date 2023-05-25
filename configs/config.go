@@ -1,3 +1,4 @@
+// Package configs is responsible by load all configuration necessary to run the project
 package configs
 
 import (
@@ -29,6 +30,7 @@ func init() {
 	viper.SetDefault("database.port", "3306")
 }
 
+// Load is a function to load configuration file
 func Load() error {
 	viper.SetConfigName("config")
 	viper.SetConfigType("toml")
@@ -59,10 +61,12 @@ func Load() error {
 	return nil
 }
 
+// GetDB is a function to get database configuration
 func GetDB() DBConfig {
 	return cfg.DB
 }
 
+// GetServerPort is a function to get server configuration
 func GetServerPort() string {
 	return cfg.API.Port
 }

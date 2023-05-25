@@ -12,6 +12,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
+// UpdateUser is a handler to update a user.
 func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
 

@@ -10,6 +10,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
+// GetUser is a handler to get a specific user.
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
 

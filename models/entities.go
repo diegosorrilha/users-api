@@ -1,11 +1,6 @@
 package models
 
-// name;
-// age;
-// email;
-// password;
-// address;
-
+// User is the user entity.
 type User struct {
 	ID       int64  `json:"id"`
 	Name     string `json:"name"`

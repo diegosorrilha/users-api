@@ -1,3 +1,4 @@
+// Package models collects database operation functions.
 package models
 
 import (
@@ -7,6 +8,7 @@ import (
 	"github.com/diegosorrilha/users-api/db"
 )
 
+// DeleteUser is a function to delete a user in the database.
 func DeleteUser(id int) (int64, error) {
 	conn, err := db.OpenConnection()
 

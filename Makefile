@@ -6,3 +6,6 @@ build: clean
 
 clean:
 	rm -f users-api
+
+test:
+	go test ./...

@@ -22,16 +22,17 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	id, err := models.Insert(user)
 
-	var resp map[string]string
+	var resp map[string]any
 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		resp = map[string]string{
+		resp = map[string]any{
 			"message": fmt.Sprintf("Error to create user: %v", err),
 		}
 	} else {
-		resp = map[string]string{
-			"message": fmt.Sprintf("user created with success! ID: %v", id),
+		resp = map[string]any{
+			"id":      id,
+			"message": "user created with success",
 		}
 	}
 

@@ -8,3 +8,5 @@
 - VMA-03: Implement "Get" endpoint (GET: /users/{id})
 - VMA-04: Implement "Create" endpoint (POST: /users)
 - VMA-05: Implement "Delete" endpoint (DELETE: /users/{id})
+- VMA-06: Implement "Update" endpoint (PUT: /users/{id})
+

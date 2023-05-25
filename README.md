@@ -41,6 +41,18 @@ curl --location --request DELETE 'http://localhost:8000/users/1'
 
 ```
 
+#### Update a user
+```bash
+curl --location --request PUT 'http://localhost:8000/users/16' -H 'Content-Type: application/json' --data '{
+    "name": "John4",
+    "age": 42,
+    "email": "john3@gmail.com",
+    "password": "424242",
+    "address": "Johns street"
+}'
+```
+
+
 
 ## Deployment
 

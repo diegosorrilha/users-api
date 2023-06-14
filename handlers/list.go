@@ -1,11 +1,12 @@
 package handlers
 
 import (
-	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/diegosorrilha/users-api/repositories"
+	"github.com/diegosorrilha/users-api/responses"
 )
 
 // ListUsers is a handler to get all users.
@@ -13,13 +14,15 @@ func ListUsers(w http.ResponseWriter, r *http.Request) {
 	userRepo := repositories.NewMySQLUserRepository()
 	users, err := userRepo.GetAll()
 
+	resp := map[string]any{}
+
 	if err != nil {
-		log.Printf("Error to get list of users: %v", err)
-		w.WriteHeader(http.StatusBadGateway)
+		msg := fmt.Sprintf("Error to get list of users: %v", err)
+		log.Print(msg)
+		responses.FailResponse("InternalServerError", resp, w)
 		return
 
 	}
 
-	w.Header().Add("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(users)
+	responses.UsersSuccessResponse(users, w)
 }

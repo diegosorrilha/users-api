@@ -1,12 +1,13 @@
 package handlers
 
 import (
-	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/diegosorrilha/users-api/repositories"
+	"github.com/diegosorrilha/users-api/responses"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -15,20 +16,23 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	userRepo := repositories.NewMySQLUserRepository()
 
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
+	var resp map[string]any
 
 	if err != nil {
-		log.Printf("Error to parse id: %v", err)
-		w.WriteHeader(http.StatusInternalServerError)
+		msg := fmt.Sprintf("Error to parse id: %v", err)
+		log.Print(msg)
+		responses.FailResponse("InternalServerError", resp, w)
 		return
 	}
 
 	user, err := userRepo.Get(id)
 
 	if err != nil {
-		log.Printf("Error to try get user with id %v: %v", id, err)
-		w.WriteHeader(http.StatusInternalServerError)
+		msg := fmt.Sprintf("Error to try get user with id %v: %v", id, err)
+		log.Print(msg)
+		responses.FailResponse("InternalServerError", resp, w)
+		return
 	}
 
-	w.Header().Add("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(user)
+	responses.UserSuccessResponse(user, w)
 }

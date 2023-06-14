@@ -1,13 +1,13 @@
 package handlers
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/diegosorrilha/users-api/repositories"
+	"github.com/diegosorrilha/users-api/responses"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -17,9 +17,13 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
 
+	resp := map[string]any{}
+
 	if err != nil {
-		log.Printf("Error to parse id: %v", err)
-		w.WriteHeader(http.StatusInternalServerError)
+		msg := fmt.Sprintf("Error to parse id: %v", err)
+		log.Print(msg)
+		responses.FailResponse("InternalServerError", resp, w)
+
 		return
 	}
 
@@ -29,20 +33,17 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Error to try delete user with id %v: %v", id, err)
 	}
 
-	resp := map[string]string{}
-
 	if rows > 0 {
-		resp = map[string]string{
+		resp = map[string]any{
 			"message": fmt.Sprintf("User deleted with success. id: %v", id),
 		}
+		responses.SuccessResponse(resp, w)
 	} else {
-		log.Printf("No record has been deleted")
-		resp = map[string]string{
-			"message": fmt.Sprintf("No record has been deleted. id: %v", id),
+		msg := fmt.Sprintf("No record has been deleted. id: %v", id)
+		log.Print(msg)
+		resp = map[string]any{
+			"message": msg,
 		}
-		w.WriteHeader(http.StatusBadRequest)
+		responses.FailResponse("StatusBadRequest", resp, w)
 	}
-
-	w.Header().Add("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(resp)
 }

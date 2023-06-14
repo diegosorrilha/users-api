@@ -9,6 +9,7 @@ import (
 
 	"github.com/diegosorrilha/users-api/models"
 	"github.com/diegosorrilha/users-api/repositories"
+	"github.com/diegosorrilha/users-api/responses"
 )
 
 // CreateUser is a handler to create a user.
@@ -18,30 +19,34 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewDecoder(r.Body).Decode(&user)
 
+	var resp map[string]any
+
 	if err != nil {
-		log.Printf("Error to decode body: %v", err)
-		w.WriteHeader(http.StatusInternalServerError)
+		msg := fmt.Sprintf("Error to decode body: %v", err)
+		log.Print(msg)
+		resp = map[string]any{
+			"message": msg,
+		}
+		responses.FailResponse("StatusBadRequest", resp, w)
+		return
 	}
 
 	user.SetPassword(user.Password)
 	id, err := userRepo.Create(user)
 
-	var resp map[string]any
-
 	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
+		msg := fmt.Sprintf("Error to create user: %v", err)
+		log.Print(msg)
 		resp = map[string]any{
-			"message": fmt.Sprintf("Error to create user: %v", err),
+			"message": msg,
 		}
+		responses.FailResponse("StatusBadRequest", resp, w)
+
 	} else {
 		resp = map[string]any{
 			"id":      id,
 			"message": "user created with success",
 		}
+		responses.SuccessResponse(resp, w)
 	}
-
-	w.Header().Add("Content-Type", "application/json")
-
-	json.NewEncoder(w).Encode(resp)
-
 }

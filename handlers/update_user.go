@@ -9,6 +9,7 @@ import (
 
 	"github.com/diegosorrilha/users-api/models"
 	"github.com/diegosorrilha/users-api/repositories"
+	"github.com/diegosorrilha/users-api/responses"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -18,41 +19,49 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	userRepo := repositories.NewMySQLUserRepository()
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
 
+	resp := map[string]any{}
+
 	if err != nil {
-		log.Printf("Error to parse id: %v", err)
-		w.WriteHeader(http.StatusInternalServerError)
+		msg := fmt.Sprintf("Error to parse id: %v", err)
+		log.Print(msg)
+		responses.FailResponse("InternalServerError", resp, w)
 		return
 	}
 
 	err = json.NewDecoder(r.Body).Decode(&user)
 
 	if err != nil {
-		log.Printf("Error to decode user: %v", err)
-		w.WriteHeader(http.StatusInternalServerError)
+		msg := fmt.Sprintf("Error to decode user: %v", err)
+		log.Print(msg)
+		responses.FailResponse("InternalServerError", resp, w)
+		return
 	}
 
 	user.SetPassword(user.Password)
 	rows, err := userRepo.Update(id, user)
 
 	if err != nil {
-		log.Printf("Error to update user with id %v: %v", id, err)
-		w.WriteHeader(http.StatusInternalServerError)
+		msg := fmt.Sprintf("Error to update user with id %v: %v", id, err)
+		log.Print(msg)
+		responses.FailResponse("InternalServerError", resp, w)
+		return
 	}
-
-	resp := map[string]string{}
 
 	if rows > 0 {
-		resp = map[string]string{
+		resp = map[string]any{
 			"message": fmt.Sprintf("User updated with success. id: %v", id),
 		}
+
 	} else {
-		log.Printf("No record has been updated")
-		resp = map[string]string{
-			"message": fmt.Sprintf("No record has been updated. id: %v", id),
+		msg := fmt.Sprintf("No record has been updated. id: %v", id)
+		log.Print(msg)
+		resp = map[string]any{
+			"message": msg,
 		}
-		w.WriteHeader(http.StatusBadRequest)
+		responses.FailResponse("StatusBadRequest", resp, w)
+		return
+
 	}
 
-	w.Header().Add("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(resp)
+	responses.SuccessResponse(resp, w)
 }

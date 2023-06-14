@@ -25,7 +25,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := userRepo.Get(id)
+	user, err := userRepo.GetByID(id)
 
 	if err != nil {
 		msg := fmt.Sprintf("Error to try get user with id %v: %v", id, err)

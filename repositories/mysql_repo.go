@@ -49,8 +49,8 @@ func (repo *MySqlUserRepository) Create(user models.User) (id int64, err error) 
 	return
 }
 
-// Get is a function to get a specific user from the database.
-func (repo *MySqlUserRepository) Get(id int) (user models.User, err error) {
+// Get is a function to get a user by ID from the database.
+func (repo *MySqlUserRepository) GetByID(id int) (user models.User, err error) {
 	defer repo.conn.Close()
 
 	row := repo.conn.QueryRow(fmt.Sprintf("SELECT * from users where id=%v", id))

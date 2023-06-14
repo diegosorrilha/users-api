@@ -7,14 +7,14 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/diegosorrilha/users-api/crypt"
 	"github.com/diegosorrilha/users-api/models"
+	"github.com/diegosorrilha/users-api/repositories"
 )
 
 // CreateUser is a handler to create a user.
 func CreateUser(w http.ResponseWriter, r *http.Request) {
-
 	var user models.User
+	userRepo := repositories.NewMySQLUserRepository()
 
 	err := json.NewDecoder(r.Body).Decode(&user)
 
@@ -23,16 +23,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 	}
 
-	hash, err := crypt.HashPassword(user.Password)
-
-	if err != nil {
-		log.Printf("Error to try to encrypt password: %v", err)
-		return
-	}
-
-	user.Password = hash
-
-	id, err := models.Insert(user)
+	user.SetPassword(user.Password)
+	id, err := userRepo.Create(user)
 
 	var resp map[string]any
 

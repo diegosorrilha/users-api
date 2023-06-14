@@ -7,12 +7,14 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/diegosorrilha/users-api/models"
+	"github.com/diegosorrilha/users-api/repositories"
 	"github.com/go-chi/chi/v5"
 )
 
 // DeleteUser is a handler to delete a user.
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
+	userRepo := repositories.NewMySQLUserRepository()
+
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
 
 	if err != nil {
@@ -21,7 +23,7 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	rows, err := models.DeleteUser(id)
+	rows, err := userRepo.DeleteUser(id)
 
 	if err != nil {
 		log.Printf("Error to try delete user with id %v: %v", id, err)

@@ -5,12 +5,13 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/diegosorrilha/users-api/models"
+	"github.com/diegosorrilha/users-api/repositories"
 )
 
 // ListUsers is a handler to get all users.
 func ListUsers(w http.ResponseWriter, r *http.Request) {
-	users, err := models.GetAll()
+	userRepo := repositories.NewMySQLUserRepository()
+	users, err := userRepo.GetAll()
 
 	if err != nil {
 		log.Printf("Error to get list of users: %v", err)

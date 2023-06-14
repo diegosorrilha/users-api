@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.0] - 2023-06-15
+### Added
+- VMA-10: Refactor structure using models and repository & move set password function to User Model
+
+
+
 ## [1.0.0] - 2023-05-25
 
 ### Added

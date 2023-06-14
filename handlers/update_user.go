@@ -7,13 +7,15 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/diegosorrilha/users-api/crypt"
 	"github.com/diegosorrilha/users-api/models"
+	"github.com/diegosorrilha/users-api/repositories"
 	"github.com/go-chi/chi/v5"
 )
 
 // UpdateUser is a handler to update a user.
 func UpdateUser(w http.ResponseWriter, r *http.Request) {
+	var user models.User
+	userRepo := repositories.NewMySQLUserRepository()
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
 
 	if err != nil {
@@ -21,7 +23,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	var user models.User
+
 	err = json.NewDecoder(r.Body).Decode(&user)
 
 	if err != nil {
@@ -29,16 +31,8 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 	}
 
-	hash, err := crypt.HashPassword(user.Password)
-
-	if err != nil {
-		log.Printf("Error to try to encrypt password: %v", err)
-		return
-	}
-
-	user.Password = hash
-
-	rows, err := models.Update(id, user)
+	user.SetPassword(user.Password)
+	rows, err := userRepo.Update(id, user)
 
 	if err != nil {
 		log.Printf("Error to update user with id %v: %v", id, err)

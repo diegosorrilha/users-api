@@ -37,8 +37,9 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	user.ID = int64(id)
 	user.SetPassword(user.Password)
-	rows, err := userRepo.Update(id, user)
+	rows, err := userRepo.Update(user)
 
 	if err != nil {
 		msg := fmt.Sprintf("Error to update user with id %v: %v", id, err)

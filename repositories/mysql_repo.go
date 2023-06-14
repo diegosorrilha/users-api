@@ -89,14 +89,14 @@ func (repo *MySqlUserRepository) GetAll() (users []models.User, err error) {
 }
 
 // Update is a function to update a user from the database.
-func (repo *MySqlUserRepository) Update(id int, user models.User) (int64, error) {
+func (repo *MySqlUserRepository) Update(user models.User) (int64, error) {
 	defer repo.conn.Close()
 
 	res, err := repo.conn.Exec(fmt.Sprintf("UPDATE users SET name='%v', age='%v', email='%v', password='%v', address='%v' WHERE id=%v",
-		user.Name, user.Age, user.Email, user.Password, user.Address, id))
+		user.Name, user.Age, user.Email, user.Password, user.Address, user.ID))
 
 	if err != nil {
-		log.Printf("Error to try update user with id %v: %v", id, err)
+		log.Printf("Error to try update user with id %v: %v", user.ID, err)
 		return 0, nil
 	}
 

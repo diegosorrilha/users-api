@@ -9,6 +9,22 @@ users-api
 | PUT    | /users/{id} | Update info for a specific user |
 | DELETE | /users/{id} | Delete a specific user          |
 
+
+## Project structure
+```bash
+users-api/
+├── configs -> Package responsible by load all configuration necessary to run the project
+├── contrib -> Directory with project support files
+├── crypt -> Package that contains encryption functions.
+├── db -> Package that contains dabatase functions.
+├── handlers -> Package that contains handlers functions.
+├── models -> Package that contains data models functions.
+├── repositories -> Package that contains repositories functions.
+├── responses ->  Package that contains response functions.
+└── routers -> Package that contains routes configurations.
+
+```
+
 ## Running
 ### 1 - Copy config file and set real values:
 ```bash

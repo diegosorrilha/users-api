@@ -24,5 +24,5 @@ func ListUsers(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	responses.UsersSuccessResponse(users, w)
+	responses.SuccessResponse(users, w)
 }

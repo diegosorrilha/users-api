@@ -34,5 +34,5 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	responses.UserSuccessResponse(user, w)
+	responses.SuccessResponse(user, w)
 }

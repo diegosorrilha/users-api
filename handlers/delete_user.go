@@ -30,16 +30,16 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 	rows, err := userRepo.DeleteUser(id)
 
 	if err != nil {
-		log.Printf("Error to try delete user with id %v: %v", id, err)
+		log.Printf("Error to try delete user with id %d: %v", id, err)
 	}
 
 	if rows > 0 {
 		resp = map[string]any{
-			"message": fmt.Sprintf("User deleted with success. id: %v", id),
+			"message": fmt.Sprintf("User deleted with success. id: %d", id),
 		}
 		responses.SuccessResponse(resp, w)
 	} else {
-		msg := fmt.Sprintf("No record has been deleted. id: %v", id)
+		msg := fmt.Sprintf("No record has been deleted. id: %d", id)
 		log.Print(msg)
 		resp = map[string]any{
 			"message": msg,

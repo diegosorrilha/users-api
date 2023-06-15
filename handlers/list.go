@@ -17,7 +17,7 @@ func ListUsers(w http.ResponseWriter, r *http.Request) {
 	resp := map[string]any{}
 
 	if err != nil {
-		msg := fmt.Sprintf("Error to get list of users: %v", err)
+		msg := fmt.Sprintf("Error to get list of users: %s", err)
 		log.Print(msg)
 		responses.FailResponse("InternalServerError", resp, w)
 		return

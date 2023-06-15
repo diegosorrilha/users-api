@@ -17,12 +17,25 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	var user models.User
 	userRepo := repositories.NewMySQLUserRepository()
 
-	err := json.NewDecoder(r.Body).Decode(&user)
-
 	var resp map[string]any
+
+	err := json.NewDecoder(r.Body).Decode(&user)
 
 	if err != nil {
 		msg := fmt.Sprintf("Error to decode body: %v", err)
+		log.Print(msg)
+		resp = map[string]any{
+			"message": msg,
+		}
+		responses.FailResponse("StatusBadRequest", resp, w)
+		return
+	}
+
+	// validate the user struct
+	err = user.Validate()
+
+	if err != nil {
+		msg := fmt.Sprintf("Error to validate payload: %v", err)
 		log.Print(msg)
 		resp = map[string]any{
 			"message": msg,

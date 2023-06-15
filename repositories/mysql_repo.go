@@ -29,7 +29,7 @@ func NewMySQLUserRepository() *MySqlUserRepository {
 func (repo *MySqlUserRepository) Create(user models.User) (id int64, err error) {
 	defer repo.conn.Close()
 
-	sql := fmt.Sprintf("INSERT INTO users (name, age, email, password, address) VALUES ('%v', %v, '%v', '%v', '%v')",
+	sql := fmt.Sprintf("INSERT INTO users (name, age, email, password, address) VALUES ('%s', %d, '%s', '%s', '%s')",
 		user.Name, user.Age, user.Email, user.Password, user.Address)
 
 	insertResult, err := repo.conn.Exec(sql)
@@ -53,11 +53,11 @@ func (repo *MySqlUserRepository) Create(user models.User) (id int64, err error) 
 func (repo *MySqlUserRepository) GetByID(id int) (user models.User, err error) {
 	defer repo.conn.Close()
 
-	row := repo.conn.QueryRow(fmt.Sprintf("SELECT * from users where id=%v", id))
+	row := repo.conn.QueryRow(fmt.Sprintf("SELECT * from users where id=%d", id))
 
 	err = row.Scan(&user.ID, &user.Name, &user.Age, &user.Email, &user.Password, &user.Address)
 	if err != nil {
-		log.Printf("Error to get user with id %v: %v", id, err)
+		log.Printf("Error to get user with id %d: %v", id, err)
 	}
 
 	return
@@ -81,7 +81,7 @@ func (repo *MySqlUserRepository) GetAll() (users []models.User, err error) {
 			continue
 		}
 
-		user.Link = fmt.Sprintf("http://localhost:%s/users/%v", configs.GetServerPort(), user.ID)
+		user.Link = fmt.Sprintf("http://localhost:%s/users/%d", configs.GetServerPort(), user.ID)
 		users = append(users, user)
 	}
 
@@ -92,11 +92,11 @@ func (repo *MySqlUserRepository) GetAll() (users []models.User, err error) {
 func (repo *MySqlUserRepository) Update(user models.User) (int64, error) {
 	defer repo.conn.Close()
 
-	res, err := repo.conn.Exec(fmt.Sprintf("UPDATE users SET name='%v', age='%v', email='%v', password='%v', address='%v' WHERE id=%v",
+	res, err := repo.conn.Exec(fmt.Sprintf("UPDATE users SET name='%s', age='%d', email='%s', password='%s', address='%s' WHERE id=%d",
 		user.Name, user.Age, user.Email, user.Password, user.Address, user.ID))
 
 	if err != nil {
-		log.Printf("Error to try update user with id %v: %v", user.ID, err)
+		log.Printf("Error to try update user with id %d: %v", user.ID, err)
 		return 0, nil
 	}
 
@@ -107,10 +107,10 @@ func (repo *MySqlUserRepository) Update(user models.User) (int64, error) {
 func (repo *MySqlUserRepository) DeleteUser(id int) (int64, error) {
 	defer repo.conn.Close()
 
-	res, err := repo.conn.Exec(fmt.Sprintf("DELETE from users where id=%v", id))
+	res, err := repo.conn.Exec(fmt.Sprintf("DELETE from users where id=%d", id))
 
 	if err != nil {
-		log.Printf("Error to try delete user with id %v: %v", id, err)
+		log.Printf("Error to try delete user with id %d: %v", id, err)
 		return 0, nil
 	}
 

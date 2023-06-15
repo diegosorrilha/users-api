@@ -57,7 +57,7 @@ func createUser() (id any, resp *httptest.ResponseRecorder) {
 
 		id := response_obj["id"]
 
-		fmt.Printf("[SETUP] User created with success! ID: '%v' \n", id)
+		fmt.Printf("[SETUP] User created with success! ID: '%d' \n", id)
 
 		return id, response
 

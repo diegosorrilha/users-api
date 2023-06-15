@@ -28,7 +28,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	user, err := userRepo.GetByID(id)
 
 	if err != nil {
-		msg := fmt.Sprintf("Error to try get user with id %v: %v", id, err)
+		msg := fmt.Sprintf("Error to try get user with id %d: %v", id, err)
 		log.Print(msg)
 		responses.FailResponse("InternalServerError", resp, w)
 		return
